@@ -27,6 +27,7 @@ public class ReservationClient {
 
             //Our fake database
             HashMap<String,List<Object>> cust = res.dummyDatabase();
+            HashMap<String,List<Object>> pending = res.dummyDatabase();
             List<Object> details = new ArrayList<>();
             
             System.out.println("Are you an admin?");
@@ -138,15 +139,14 @@ public class ReservationClient {
                 while (loop1 == true){
                     System.out.println("You may now assign and confirm a reservation");
                     System.out.println("Below are list of reservations:");
-                    //HashMap<String,List<Object>> cust = res.dummyDatabase();
-                    Set<String> keys = cust.keySet();
+                    Set<String> keys = pending.keySet();
                     //print all the keys 
                     for (String key : keys) {
                     System.out.println(key);
                     }
                     System.out.println("Select reservation id to confirm");
                     String id_to_confirm = sc2.nextLine();
-                    details = res.checkReservation(id_to_confirm, cust);
+                    details = res.checkReservation(id_to_confirm, pending);
                     room_type = details.get(3).toString();
                     reservation_date = details.get(4).toString();
                     String rs = res.matchAvailability(room_type, reservation_date).toString();
@@ -174,15 +174,29 @@ public class ReservationClient {
                         System.out.println("The Reservation is " + reservation_status);
                         System.out.println("Total Charge: " + payment_amount);
                         System.out.println("Emailing invoice with above details to " + email + "....."); 
+                        pending.remove(id_to_confirm);
                     }
                     else if (selection ==2){
-                        System.out.println("failed");
+                        details.set(5,"Rejected");
+                        customer_name = details.get(0).toString();
+                        phone_no = (int)details.get(1);
+                        email = details.get(2).toString();
+                        room_type = details.get(3).toString();
+                        reservation_date = details.get(4).toString();
+                        reservation_status = details.get(5).toString();
+                        payment_amount = (double) details.get(6);
+
+                        System.out.println("Updated Details:");
+                        System.out.println("Reservation ID: " + id_to_confirm);
+                        System.out.println("Customer Name: " + customer_name);
+                        System.out.println("Room Type: " + room_type);
+                        System.out.println("Reservation Date: " + reservation_date);
+                        System.out.println("The Reservation is " + reservation_status);
+                        System.out.println("We will remove your reservation");
+                        pending.remove(id_to_confirm);
+                        cust.remove(id_to_confirm);
                     }
-                       
-                    //details = res.checkReservation(id_to_confirm,cust);
-                    
-        
-      
+
                     System.out.println("Do you want to resolve more reservation?");
                     System.out.println("1. Yes");
                     System.out.println("2. No");

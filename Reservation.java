@@ -162,12 +162,12 @@ class HotelManagementSystem{
                         System.out.println("Enter your phone number");
                         phone_no = sc.nextInt();
                         System.out.println("Enter your email");
+                        email = sc2.nextLine();
                         System.out.println("Please enter your desired room type:");
-                        System.out.println("1. Superior \n 2. Deluxe \n 3. Executive");
+                        System.out.println("1. Superior \n 2.Deluxe \n 3.Executive");
                         room_type = sc2.nextLine();
                         System.out.println("Please enter your desired date");
                         reservation_date = sc2.nextLine();
-                        email = sc2.nextLine();
                         id = customer_name + " " + phone_no;
                         reservation_status = "Reservation Submitted";
                         r.addReservation(id,customer_name,phone_no,email,room_type, reservation_date,reservation_status,0.00);

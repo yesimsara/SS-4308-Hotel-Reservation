@@ -27,6 +27,8 @@ public class ReservationClient {
             //Our fake database
             HashMap<String,List<Object>> cust = res.dummyDatabase();
             HashMap<String,List<Object>> pending = res.dummyDatabase();
+            //use the dummy database below for billing information
+            HashMap<String,List<Object>> billing = new HashMap<>();
             List<Object> details = new ArrayList<>();
             
             System.out.println("Access Type");
@@ -120,7 +122,16 @@ public class ReservationClient {
                             }
                             break;
                     case 5: //Make Payment
-                            System.out.println("You have chosen 'Make Payment'");     
+                            System.out.println("You have chosen 'Make Payment'");  
+                            System.out.println("Enter your Reservation ID");
+                            reservation_id = sc2.nextLine();
+                            //ask for other details like card number, name on card, bank name etc
+                            //call the makePayment()
+                            //input for above function: id, HashMap billing and all the details 
+                            //assign the output from the function to a list 
+                            //create the list like this List<Object> nameOfList = new ArrayList<>();   
+                            //put the details in the dummy database 'billing'
+                            //billing.put(reservation_id,nameOfList);
                     }
       
                     // To loop back, select 2

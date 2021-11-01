@@ -13,7 +13,38 @@ public class Reservation extends UnicastRemoteObject implements ReservationInter
     String reservation_date;
     String reservation_status;
     double payment_amount;
- 
+    
+    public HashMap<String,List<Object>> dummyDatabase() throws RemoteException{
+        HashMap<String,List<Object>> cust = new HashMap<>();
+        List<Object> test = new ArrayList<Object>();
+        test.add(new String("Test"));
+        test.add(123);
+        test.add(new String("test@mail.com"));
+        test.add(new String("Deluxe"));
+        test.add(new String("31/10/2021"));
+        test.add(new String("Reservation Submitted"));
+        test.add(0.00);
+        cust.put("test 123",test);
+        List<Object> sara = new ArrayList<Object>();
+        sara.add(new String("sara"));
+        sara.add(123);
+        sara.add(new String("sara@mail.com"));
+        sara.add(new String("Executive"));
+        sara.add(new String("31/10/2021"));
+        sara.add(new String("Reservation Submitted"));
+        sara.add(0.00);
+        cust.put("sara 123",sara);
+        List<Object> bong = new ArrayList<Object>();
+        bong.add(new String("Bong"));
+        bong.add(123);
+        bong.add(new String("bong@mail.com"));
+        bong.add(new String("Superior"));
+        bong.add(new String("31/10/2021"));
+        bong.add(new String("Reservation Submitted"));
+        bong.add(0.00);
+        cust.put("bong 123",bong);
+        return cust;
+    }
 
     // Empty constructor
     public Reservation() throws RemoteException{
@@ -82,42 +113,6 @@ public class Reservation extends UnicastRemoteObject implements ReservationInter
         return pricing.get(room_type);   
     }
 
-    public void makePayment() throws RemoteException{
-
-    }
-
-    public HashMap<String,List<Object>> dummyDatabase() throws RemoteException{
-        HashMap<String,List<Object>> cust = new HashMap<>();
-        List<Object> test = new ArrayList<Object>();
-        test.add(new String("Test"));
-        test.add(123);
-        test.add(new String("test@mail.com"));
-        test.add(new String("Deluxe"));
-        test.add(new String("31/10/2021"));
-        test.add(new String("Reservation Submitted"));
-        test.add(0.00);
-        cust.put("test 123",test);
-        List<Object> sara = new ArrayList<Object>();
-        sara.add(new String("sara"));
-        sara.add(123);
-        sara.add(new String("sara@mail.com"));
-        sara.add(new String("Executive"));
-        sara.add(new String("31/10/2021"));
-        sara.add(new String("Reservation Submitted"));
-        sara.add(0.00);
-        cust.put("sara 123",sara);
-        List<Object> bong = new ArrayList<Object>();
-        bong.add(new String("Bong"));
-        bong.add(123);
-        bong.add(new String("bong@mail.com"));
-        bong.add(new String("Superior"));
-        bong.add(new String("31/10/2021"));
-        bong.add(new String("Reservation Submitted"));
-        bong.add(0.00);
-        cust.put("bong 123",bong);
-        return cust;
-    }
-
     // This function find out if the date selected by customer is available or not
     // If the date is available and the room type is available, the reservation status is changed to 'Confirmed'
     // Else reservation status is changed to 'rejected'
@@ -133,6 +128,16 @@ public class Reservation extends UnicastRemoteObject implements ReservationInter
 
         return reservation_status;
 
+    }
+
+    public List<Object>  makePayment(String id, HashMap<String,List<Object>> cust) throws RemoteException {
+        //add other details in the parameter
+        List<Object> details = new ArrayList<Object>();
+        details = cust.get(id);
+        double payment_amount = (double)details.get(6);
+        details.add(payment_amount);
+        //details.add(); keep adding other details
+        return details;
     }
 
 

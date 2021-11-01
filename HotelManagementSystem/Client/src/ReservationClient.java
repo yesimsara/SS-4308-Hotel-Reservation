@@ -20,7 +20,6 @@ public class ReservationClient {
         // One scanner for integer and one scanner for string
         Scanner sc = new Scanner(System.in);
         Scanner sc2 = new Scanner(System.in);
-        System.out.println("test");
         try{ 
             Registry reg = LocateRegistry.getRegistry("127.0.0.1",2345);
             ReservationInterface res = (ReservationInterface) reg.lookup("server");
@@ -30,8 +29,8 @@ public class ReservationClient {
             HashMap<String,List<Object>> pending = res.dummyDatabase();
             List<Object> details = new ArrayList<>();
             
-            System.out.println("Are you an admin?");
-            System.out.println("1. Yes \n2. No");
+            System.out.println("Access Type");
+            System.out.println("1. Admin \n2. Customer");
             int admin = sc.nextInt();
             if (admin == 2){
                 while (loop == true){
@@ -110,11 +109,14 @@ public class ReservationClient {
                                     System.out.println(room_no);
                                 }
                             }
-                            else{
+                            else if (selection == 3){
                                 List<String> available_rooms = res.checkAvailability("Executive");
                                 for(String room_no:available_rooms) {
                                     System.out.println(room_no);
                                 }
+                            }
+                            else{
+                                System.out.println("Please choose from available options only");
                             }
                             break;
                     case 5: //Make Payment
@@ -175,6 +177,7 @@ public class ReservationClient {
                         System.out.println("Total Charge: " + payment_amount);
                         System.out.println("Emailing invoice with above details to " + email + "....."); 
                         pending.remove(id_to_confirm);
+                        System.out.println("Action Successful!");
                     }
                     else if (selection ==2){
                         details.set(5,"Rejected");
@@ -195,6 +198,7 @@ public class ReservationClient {
                         System.out.println("We will remove your reservation");
                         pending.remove(id_to_confirm);
                         cust.remove(id_to_confirm);
+                        System.out.println("Action Successful!");
                     }
 
                     System.out.println("Do you want to resolve more reservation?");

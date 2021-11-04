@@ -122,16 +122,23 @@ public class ReservationClient {
                             }
                             break;
                     case 5: //Make Payment
-                            System.out.println("You have chosen 'Make Payment'");  
-                            System.out.println("Enter your Reservation ID");
-                            reservation_id = sc2.nextLine();
-                            //ask for other details like card number, name on card, bank name etc
-                            //call the makePayment()
-                            //input for above function: id, HashMap billing and all the details 
-                            //assign the output from the function to a list 
-                            //create the list like this List<Object> nameOfList = new ArrayList<>();   
-                            //put the details in the dummy database 'billing'
-                            //billing.put(reservation_id,nameOfList);
+                        System.out.println("You have chosen 'Make Payment'");
+                        System.out.println("Enter your Reservation ID");
+                        reservation_id = sc2.nextLine();
+                        details = res.checkReservation(reservation_id,cust);
+                        payment_amount = (double) details.get(6);
+                        System.out.println("Total Amount for your reservation:"+ payment_amount);
+                        System.out.println("Enter your Card Number");
+                        int card_no = sc.nextInt();
+                        System.out.println("Enter Bank Name");
+                        System.out.println("1. BIBD \n2. Baiduri");
+                        String bank_name = sc2.nextLine();
+                        System.out.println("Enter CVV number");
+                        int Cvv_no= sc.nextInt();
+                        List<Object> payment = new ArrayList<>();
+                        payment = res.makePayment(reservation_id, cust, card_no, bank_name, Cvv_no);
+                        billing.put(reservation_id,payment);
+                        break;
                     }
       
                     // To loop back, select 2

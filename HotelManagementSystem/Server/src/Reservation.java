@@ -130,12 +130,15 @@ public class Reservation extends UnicastRemoteObject implements ReservationInter
 
     }
 
-    public List<Object>  makePayment(String id, HashMap<String,List<Object>> cust) throws RemoteException {
+    public List<Object> makePayment(String id, HashMap<String,List<Object>> cust,int card_no, String bank_name, int Cvv_no) throws RemoteException {
         //add other details in the parameter
         List<Object> details = new ArrayList<Object>();
         details = cust.get(id);
         double payment_amount = (double)details.get(6);
         details.add(payment_amount);
+        details.add(card_no);
+        details.add(bank_name);
+        details.add(Cvv_no);
         //details.add(); keep adding other details
         return details;
     }
